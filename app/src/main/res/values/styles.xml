@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorPrimary</item> //This is for progressbar
+    </style>
+
+    <style name="LightTheme" parent="AppThemeNoActionBar">
+        <item name="android:textColor">#222222</item>
+        <item name="android:textColorHint">#3e3e3e</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textSize">16sp</item>
+        <item name="colorBackground">#FFFFFF</item>
+        <item name="colorPrimaryText">#222222</item>
+        <item name="colorSecondaryText">#777777</item>
+        <!--<item name="colorControlNormal">#3a3a3a</item>
+        <item name="colorControlActivated">#001eff</item>
+        <item name="colorControlHighlight">#001eff</item>-->
+        <item name="colorPrimaryButton">#dadada</item>
+    </style>
+
+</resources>

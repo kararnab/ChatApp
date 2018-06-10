@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/callStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:background="@color/colorAccent"
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:padding="10dp">
+        <TextView
+            android:layout_weight="1"
+            android:text="Tap to return to call"
+            android:textColor="?attr/colorBackground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/callTime"
+            android:textColor="?attr/colorBackground"
+            android:text="10:40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="6dp">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:elevation="0dp"
+                app:layout_scrollFlags="scroll|snap"
+                />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                app:tabMode="fixed"
+                android:layout_below="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:elevation="0dp"
+                app:tabTextColor="#d3d3d3"
+                app:tabSelectedTextColor="#ffffff"
+                app:tabIndicatorColor="#ffffff"
+                android:minHeight="?attr/actionBarSize"
+                />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_below="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabChat"
+            app:backgroundTint="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            android:visibility="visible"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_chat_black_24dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabStatusCamera"
+            app:backgroundTint="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            android:visibility="gone"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_camera_alt_black_24dp" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabStatusEdit"
+            app:backgroundTint="#e1e1e1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="90dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_edit_24dp" />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabCall"
+            app:backgroundTint="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_phone_in_talk_black_24dp"
+            android:visibility="gone" />
+
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
