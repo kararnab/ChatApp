@@ -12,6 +12,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Created by Arnab Kar on 11/06/18.
+ * Email   : arnabrocking@gmail.com
+ */
 public class BlankFragment extends Fragment {
 
     public BlankFragment() {

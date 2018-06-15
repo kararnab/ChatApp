@@ -10,4 +10,14 @@
     <string name="action_refresh">Refresh</string>
     <string name="action_contacts">Contacts</string>
     <string name="action_status_privacy">Status privacy</string>
+
+
+    <string name="return_to_call_action">Tap to return to call</string>
+
+
+    <!--Eula Messages-->
+    <string name="welcome_message">Welcome To WhatsApp</string>
+    <string name="action_agree_continue">Agree and continue</string>
+
+
 </resources>

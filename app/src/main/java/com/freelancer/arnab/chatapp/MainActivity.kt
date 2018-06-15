@@ -17,7 +17,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.app.SearchManager
 import android.support.v7.widget.SearchView
 
-
+/**
+ * Created by Arnab Kar on 11/06/18.
+ * Email   : arnabrocking@gmail.com
+ */
 class MainActivity : AppCompatActivity() {
 
     private var tabTitles = arrayOf("CHATS", "STATUS", "CALLS")

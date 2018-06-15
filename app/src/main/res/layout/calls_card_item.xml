@@ -19,14 +19,14 @@
             android:id="@+id/name"
             android:text="Arnab Kar"
             android:textColor="#333333"
-            android:textSize="21sp"
+            android:textSize="@dimen/large_text"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/timeOfCall"
             android:text="(5) Yesterday, 10:51 PM"
-            android:textSize="16sp"
+            android:textSize="@dimen/medium_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

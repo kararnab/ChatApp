@@ -9,7 +9,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 
-
+/**
+ * Created by Arnab Kar on 11/06/18.
+ * Email   : arnabrocking@gmail.com
+ */
 class ChatsAdapter// Provide a suitable constructor (depends on the kind of dataset)
 (private val mDataset: ArrayList<HashMap<String,String>>,private val mContext: Context) : RecyclerView.Adapter<ChatsAdapter.MyViewHolder>() {
 

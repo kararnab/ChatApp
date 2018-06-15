@@ -16,7 +16,7 @@
         android:padding="10dp">
         <TextView
             android:layout_weight="1"
-            android:text="Tap to return to call"
+            android:text="@string/return_to_call_action"
             android:textColor="?attr/colorBackground"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />

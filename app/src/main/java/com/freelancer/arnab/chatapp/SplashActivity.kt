@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.freelancer.arnab.chatapp.firstTimeUser.EulaActivity
 
+/**
+ * Created by Arnab Kar on 11/06/18.
+ * Email   : arnabrocking@gmail.com
+ */
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

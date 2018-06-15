@@ -35,6 +35,8 @@ public class ChatsFragment extends Fragment {
 
         RecyclerView rv = rootView.findViewById(R.id.rv_recycler_view);
         rv.setHasFixedSize(true);
+        /*rv.addItemDecoration(new DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL));*/
 
         ArrayList<HashMap<String,String>> myChatList = new ArrayList<>();
 

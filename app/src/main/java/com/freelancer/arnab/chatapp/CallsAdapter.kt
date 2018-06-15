@@ -7,7 +7,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 
-
+/**
+ * Created by Arnab Kar on 11/06/18.
+ * Email   : arnabrocking@gmail.com
+ */
 class CallsAdapter// Provide a suitable constructor (depends on the kind of dataset)
 (private val mDataset: ArrayList<HashMap<String,String>>) : RecyclerView.Adapter<CallsAdapter.MyViewHolder>() {
 

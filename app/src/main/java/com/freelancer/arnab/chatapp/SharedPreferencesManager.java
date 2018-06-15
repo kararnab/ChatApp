@@ -3,6 +3,10 @@ package com.freelancer.arnab.chatapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Created by Arnab Kar on 11/06/18.
+ * Email   : arnabrocking@gmail.com
+ */
 public class SharedPreferencesManager {
 
     private static final String APP_CREDENTIALS = "app_credentials";
