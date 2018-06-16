@@ -19,5 +19,11 @@
     <string name="welcome_message">Welcome To WhatsApp</string>
     <string name="action_agree_continue">Agree and continue</string>
 
+    <!--Chat Details Page-->
+    <string name="title_activity_chat_detail">User</string>
+    <string name="type_a_message">Type a message</string>
+    <string name="action_scroll_down">Scroll Down</string>
+    <string name="empty_msg_begin">To start callng contacts who have WhatsApp, tap </string>
+    <string name="empty_msg_end"> at the bottom of the screen.</string>
 
 </resources>

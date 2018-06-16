@@ -31,7 +31,7 @@
         android:textColor="?attr/colorBackground"
         android:gravity="center"
         android:text="@string/welcome_message"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        style="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         android:gravity="center"
         android:padding="@dimen/margin_medium"
         android:textColor="?attr/colorBackground"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        style="@style/TextAppearance.AppCompat.Caption"
         android:text="Tap 'Agree and continue' to accept the WhatsApp Terms of Service and Privacy Policy."
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,21 +67,21 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="7dp"
             android:background="@color/colorAccent" />
 
-        <Button
+        <android.support.design.button.MaterialButton
             android:id="@+id/acceptEula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="#434343"
-            android:padding="@dimen/margin_medium"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp"
+            android:layout_margin="@dimen/margin_medium"
+            android:gravity="center_vertical"
+            app:rippleColor="@color/colorPrimary"
+            app:backgroundTint="@color/colorPrimaryDark"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
             android:textColor="?attr/colorBackground"
             android:textAllCaps="false"
             android:text="@string/action_agree_continue" />

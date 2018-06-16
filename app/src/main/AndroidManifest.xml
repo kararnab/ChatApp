@@ -25,6 +25,15 @@
         <activity android:name=".MainActivity"
             android:label="WhatsApp"
             />
+        <activity
+            android:name=".ChatDetail"
+            android:label="@string/title_activity_chat_detail"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/LightTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.freelancer.arnab.chatapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

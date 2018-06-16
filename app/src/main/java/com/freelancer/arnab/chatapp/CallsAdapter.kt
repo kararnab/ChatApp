@@ -45,7 +45,7 @@ class CallsAdapter// Provide a suitable constructor (depends on the kind of data
         holder.mName.text = mDataset[position]["name"]
         holder.mTimeOfCall.text = mDataset[position]["callSummery"]
         if(mDataset[position]["actionType"]=="audio"){
-            holder.mActionTypeImage.setImageResource(R.drawable.ic_call_black_24dp)
+            holder.mActionTypeImage.setImageResource(R.drawable.ic_call_24dp)
         }else {
             holder.mActionTypeImage.setImageResource(R.drawable.ic_videocam_black_24dp)
         }

@@ -1,5 +1,6 @@
 package com.freelancer.arnab.chatapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +42,7 @@ public class ChatsFragment extends Fragment {
         /*rv.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));*/
 
-        ArrayList<HashMap<String,String>> myChatList = new ArrayList<>();
+        final ArrayList<HashMap<String,String>> myChatList = new ArrayList<>();
 
         HashMap<String,String> hashMap1 = new HashMap<>();
         hashMap1.put("name","Riaz Khan");
@@ -85,7 +89,25 @@ public class ChatsFragment extends Fragment {
         rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        //llm.setStackFromEnd(true); //Do try this too if you want to achieve the other thing, same as app:stackFromEnd="true"
+        //llm.setReverseLayout(true); //This makes the list get reversed like in chats, same as app:reverseLayout="true"
+
         rv.setLayoutManager(llm);
+
+        rv.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),rv,new RecyclerItemClickListener.OnItemClickListener(){
+
+            @Override
+            public void onItemLongClick(@Nullable View view, int position) {
+
+            }
+
+            @Override
+            public void onItemClick(@NotNull View view, int position) {
+                Intent intent = new Intent(getContext(),ChatDetail.class);
+                intent.putExtra("userOrGroupName",myChatList.get(position).get("name"));
+                startActivity(intent);
+            }
+        }));
 
         return rootView;
     }
