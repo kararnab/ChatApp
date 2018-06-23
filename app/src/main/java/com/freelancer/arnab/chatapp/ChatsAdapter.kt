@@ -8,19 +8,24 @@ import android.widget.TextView
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.TransitionOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+
 
 /**
  * Created by Arnab Kar on 11/06/18.
  * Email   : arnabrocking@gmail.com
  */
-class ChatsAdapter// Provide a suitable constructor (depends on the kind of dataset)
-(private val mDataset: ArrayList<HashMap<String,String>>,private val mContext: Context) : RecyclerView.Adapter<ChatsAdapter.MyViewHolder>() {
+class ChatsAdapter(private val mDataset: ArrayList<HashMap<String,String>>,private val mContext: Context) : RecyclerView.Adapter<ChatsAdapter.MyViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     class MyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var mName: TextView
+        var displayPicture: ImageView
         var mMessage: TextView
         var mUnreadCount: TextView
         var mTimeOfChat: TextView
@@ -30,6 +35,7 @@ class ChatsAdapter// Provide a suitable constructor (depends on the kind of data
 
             //mCardView = v.findViewById(R.id.card_view)
             mName = v.findViewById(R.id.name)
+            displayPicture = v.findViewById(R.id.displayPicture)
             mMessage = v.findViewById(R.id.message)
             mUnreadCount = v.findViewById(R.id.unreadCount)
             mTimeOfChat = v.findViewById(R.id.timeOfChat)
@@ -54,6 +60,20 @@ class ChatsAdapter// Provide a suitable constructor (depends on the kind of data
         val colorSecondaryText = typedArray.getColor(0,0)
         typedArray.recycle()
 
+        if(mDataset[position]["imgUrl"]!=null){
+            val url = mDataset[position]["imgUrl"]
+            Glide.with(mContext)
+                    .load(url)
+                    .transition(DrawableTransitionOptions().crossFade())
+                    .apply(RequestOptions().placeholder(R.drawable.ic_person_black_24dp))
+                    //.transform(CircleTransform(context))
+                    .into(holder.displayPicture)
+        }else{
+            // make sure Glide doesn't load anything into this view until told otherwise
+            Glide.with(mContext).clear(holder.displayPicture)
+            // remove the placeholder (optional); read comments below
+            holder.displayPicture.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_person_black_24dp))
+        }
         if(mDataset[position]["typingStatus"]!=null){
             holder.mMessage.text = mDataset[position]["typingStatus"]
             holder.mMessage.setTextColor(ContextCompat.getColor(mContext,R.color.colorAccent))

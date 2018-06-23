@@ -7,9 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.freelancer.arnab.chatapp.customviews.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,11 +44,14 @@ public class CallsFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_calls, container, false);
 
-        RecyclerView callsRecyclerView = rootView.findViewById(R.id.rv_recycler_view);
-        TextView emptyView = rootView.findViewById(R.id.emptyView);
-        setImgSpan(emptyView,getString(R.string.empty_msg_begin),getString(R.string.empty_msg_end));
-
+        RecyclerViewEmptySupport callsRecyclerView = rootView.findViewById(R.id.rv_recycler_view);
         callsRecyclerView.setHasFixedSize(true);
+
+        TextView emptyView = rootView.findViewById(R.id.emptyView);
+        SpannableStringBuilder builder = Utility.setImgSpan(inflater.getContext(),R.drawable.ic_call_24dp,getString(R.string.empty_msg_begin),getString(R.string.empty_msg_end));
+        emptyView.setText(builder);
+
+        callsRecyclerView.setEmptyView(emptyView);
 
         //This is just a prototype, we will use live data to show the list according to google i/o 2017
         ArrayList<HashMap<String,String>> myCallList = new ArrayList<>();
@@ -116,17 +119,6 @@ public class CallsFragment extends Fragment {
 
     void clearCallLog(){
 
-    }
-
-    void setImgSpan(TextView emptyView,String start,String end){
-
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(start).append(" ");
-        builder.setSpan(new ImageSpan(getActivity(), R.drawable.ic_call_24dp),
-                builder.length() - 1, builder.length(), 0);
-        builder.append(end);
-
-        emptyView.setText(builder);
     }
 
     void addDataListener(final RecyclerView.Adapter mAdapter,final View mEmptyView){

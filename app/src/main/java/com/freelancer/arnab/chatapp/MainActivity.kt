@@ -15,6 +15,8 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import android.app.SearchManager
+import android.support.transition.TransitionManager
+import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
 
 /**
@@ -24,7 +26,7 @@ import android.support.v7.widget.SearchView
 class MainActivity : AppCompatActivity() {
 
     private var tabTitles = arrayOf("CHATS", "STATUS", "CALLS")
-    var unreadCount = intArrayOf(1, 5, 0)
+    var unreadCount = intArrayOf(2, 5, 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,9 +110,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
-        return if (id == R.id.action_settings) {
-            true
-        } else super.onOptionsItemSelected(item)
+        return when (id) {
+            R.id.action_settings -> true
+            R.id.action_search -> {
+                TransitionManager.beginDelayedTransition(findViewById(R.id.toolbar))
+                MenuItemCompat.expandActionView(item)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
 
     }
 
@@ -122,26 +130,18 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment? {
 
-            when (position) {
-                0 -> return ChatsFragment()
-                1 -> return BlankFragment()
-                2 -> return CallsFragment()
+            return when (position) {
+                0 -> ChatsFragment()
+                1 -> BlankFragment()
+                2 -> CallsFragment()
+                else -> null
             }
-
-            return null
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
             // Generate title based on item position
             return tabTitles[position]
         }
-
-        /*fun getTabView(position: Int): View {
-            val tab = LayoutInflater.from(this@MainActivity).inflate(R.layout.custom_tab, null)
-            val tv = tab.findViewById(R.id.custom_text) as TextView
-            tv.text = tabTitles[position]
-            return tab
-        }*/
 
     }
 

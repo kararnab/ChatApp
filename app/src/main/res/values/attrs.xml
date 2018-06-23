@@ -5,4 +5,5 @@
     <attr name="colorPrimaryText" format="color|reference" />
     <attr name="colorSecondaryText" format="color|reference" />
     <attr name="colorPrimaryButton" format="color|reference" />
+    <attr name="colorMessageInfo" format="color|reference" />
 </resources>
