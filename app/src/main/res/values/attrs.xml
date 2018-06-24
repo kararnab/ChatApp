@@ -6,4 +6,6 @@
     <attr name="colorSecondaryText" format="color|reference" />
     <attr name="colorPrimaryButton" format="color|reference" />
     <attr name="colorMessageInfo" format="color|reference" />
+    <attr name="colorChatBg1" format="color|reference" />
+    <attr name="colorChatBg2" format="color|reference" />
 </resources>

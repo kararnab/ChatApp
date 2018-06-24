@@ -1,6 +1,7 @@
 package com.freelancer.arnab.chatapp
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,9 +10,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.TransitionOptions
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 
 
 /**
@@ -67,6 +71,18 @@ class ChatsAdapter(private val mDataset: ArrayList<HashMap<String,String>>,priva
                     .transition(DrawableTransitionOptions().crossFade())
                     .apply(RequestOptions().placeholder(R.drawable.ic_person_black_24dp))
                     //.transform(CircleTransform(context))
+                    .listener(object: RequestListener<Drawable>{
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            Utility.reportExceptionForAnalytics("Error loading image",e)
+                            return false // important to return false so the error placeholder can be placed
+                        }
+
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            //todo something when picture already loaded, like store it in local storage
+                            return false
+                        }
+
+                    })
                     .into(holder.displayPicture)
         }else{
             // make sure Glide doesn't load anything into this view until told otherwise

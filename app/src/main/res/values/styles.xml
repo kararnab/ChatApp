@@ -28,6 +28,8 @@
         <item name="colorPrimaryText">#222222</item>
         <item name="colorSecondaryText">#777777</item>
         <item name="colorMessageInfo">#fff3b6</item>
+        <item name="colorChatBg1">#aeff8e</item>
+        <item name="colorChatBg2">#ffffff</item>
         <!--<item name="colorControlNormal">#3a3a3a</item>
         <item name="colorControlActivated">#001eff</item>
         <item name="colorControlHighlight">#001eff</item>-->

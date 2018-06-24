@@ -26,3 +26,4 @@
   **[] $VALUES;
   public *;
 }
+-dontwarn okio.**

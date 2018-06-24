@@ -4,12 +4,17 @@ import android.content.Context
 import android.text.SpannableStringBuilder
 import android.text.format.DateUtils
 import android.text.style.ImageSpan
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.WindowManager
 import android.view.animation.Transformation
+import java.security.SecureRandom
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.spec.SecretKeySpec
 
 
 class Utility {
@@ -106,6 +111,16 @@ class Utility {
             return (dtNow[Calendar.YEAR] == cDate[Calendar.YEAR]
                     && dtNow[Calendar.MONTH] == cDate[Calendar.MONTH]
                     && dtNow[Calendar.DATE] == cDate[Calendar.DATE])
+        }
+
+        /**
+         * Errors need to be reported for developers to fix. Hence, we need it here, abstracting
+         * the reporting function, any call to this function will be sent to Crashlytics or other
+         * crash reporting tool.
+         */
+        @JvmStatic
+        fun reportExceptionForAnalytics(title: String, e: Exception?){
+            Log.e("Exception Caught",title,e)
         }
     }
 
