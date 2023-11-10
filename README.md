@@ -13,49 +13,39 @@ Clone the project
 git clone https://github.com/kararnab/ChatApp.git
 ```
 
+### Useful Commands
+These are the few useful commands
+1. `./gradlew app:detekt` -> Static code analysis
+2. `./gradlew app:lint` -> Lint check
+3. `./gradlew app:dependencies` -> Getting the app dependency tree
+
 ### DataBase - SQLite
-* Sqlite being the defacto and deJure standard of Android apps is being used here.
+* Sqlite being the de-facto and deJure standard of Android apps is being used here.
 
 ### Server
-Although the server is not yet ready, I plan to write it in node
-* You need to have node and npm installed in your machine.
-* open up your teminal or command prompt go to the directory `chat`
-* Do install all dependencies using  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`npm install`  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`npm install -g nodemon`  
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`npm start`  
-Your server will be setup and ready for use.
+Although the server is not yet ready, I plan to write it in Node Js/GoLang
 
 ### UI
 * Go to browser and type `localhost:8080` in place of url.
 * Register user by giving basic details.
 * Login from the same screen.  
-`Note: Handle should be unique for every user.`
+  `Note: Handle should be unique for every user.`
 
 # Why I started this
-I had seen a lot of times during local areas like coffee shops that people find it difficult to interact with each other may be due to hesitation. Most of the local chats that we find will be again public and the interactions become public. So I was thinking of creating an application where people can talk in public as well as private.
+Although there are apps like WhatsApp and Telegram, I feel, there's no proper open source app that can be installed in any area like a library, coffee shop etc. And that would be end to end encrypted.
 
 # Few Screen Shots
 #### Main Screen
-![chat screen](https://github.com/kararnab/ChatApp/blob/master/screenshots/chat_history.png "Chat Page")  
+![chat screen](https://github.com/kararnab/ChatApp/blob/master/screenshots/chat_history.png "Chat Page")
 #### Call history
-![call screen](https://github.com/kararnab/ChatApp/blob/master/screenshots/call_history.png "Call Page")  
+![call screen](https://github.com/kararnab/ChatApp/blob/master/screenshots/call_history.png "Call Page")
 
 
 # Upcoming
-I have lot of things to do. 
-* Rewrite the whole code in kotlin.
+Have a lot of things to do -
 * Writing the socket logics
-* Bug fixes.
-* More feauters to come, like blocking a user from chatting etc.  
+* Read and implement [Keystore](https://techenum.com/android-keystore-store-sensitive-data-in-android/)
 * Option for saving chats in case you need it.
 
 # Suggestions
 If you have any suggestions please do mail me at `arnabrocking@gmail.com` with subject as `whatsappclone-suggestions`
-
-License
--------
-Like the rest of Gradle, the _Gradle Kotlin DSL_ is released under version 2.0 of the [Apache License](LICENSE.md).
-
-# Credits
-I was inspired by the challenges faced by my friends. I wanted to find out a soluton. So, credit goes to them.
