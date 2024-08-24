@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: nodejs-chat-server
+      deployment: nodejs-chat-server
   template:
     metadata:
       labels:
@@ -13,7 +13,8 @@ spec:
     spec:
       containers:
         - name: nodejs-chat
-          image: your-dockerhub-username/nodejs-chat-server:latest
+          image: chatapp:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 3000
           env:
@@ -25,15 +26,18 @@ spec:
               value: "admin@yourdomain.com"
             - name: EJABBERD_ADMIN_PASS
               value: "adminpassword"
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
   name: nodejs-chat-server
 spec:
   selector:
-    app: nodejs-chat-server
+    deployment: nodejs-chat-server
   ports:
     - name: http
-      port: 80
+      port: 8080
       targetPort: 3000
+  type: LoadBalancer

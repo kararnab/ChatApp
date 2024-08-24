@@ -115,7 +115,7 @@ tls:
     - "no_sslv3"
     - "no_tlsv1"
     - "no_tlsv1_1"
-  ciphers: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384" # Secure ciphers for encryption
+  ciphers: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256" # Secure ciphers for encryption
   certfiles:
     - "/etc/ejabberd/ejabberd.pem"
 

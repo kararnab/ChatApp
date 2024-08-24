@@ -63,17 +63,41 @@ init.sql: SQL script for initializing the PostgreSQL database with the required 
 
 ## Deployment Order:
 
-1. Build Docker Images
+1. Build Docker Images and Load them to minikube like
+```bash
+docker context use default
+docker build -t [TAG] .
+minikube image load chatapp:latest
+minikube image load ejabberd:latest
+```
 
-2. Persistent Volumes:
+2. Create Config Map (Optional)
+```bash
+kubectl create configmap postgres-initdb-configmap --from-file=init-user-db.sh
+```
 
-Start by applying the persistent-volumes.yaml to set up persistent storage.
-PostgreSQL StatefulSet:
+3. Deploy Persistent Volumes and Claims:
+```bash
+kubectl apply -f k8s/persistent-volumes.yaml
+```
 
-3. Deploy the postgres-statefulset.yaml to bring up the PostgreSQL database.
-   Ejabberd StatefulSet:
+4. Deploy PostgreSQL StatefulSet:
+```bash
+kubectl apply -f k8s/postgres-statefulset.yaml
+```
 
-Deploy the ejabberd-statefulset.yaml to bring up the Ejabberd server.
-Node.js Deployment:
+5. Deploy Ejabberd StatefulSet:
+```bash
+kubectl apply -f k8s/ejabberd-statefulset.yaml
+```
 
-4. Finally, deploy the nodejs-deployment.yaml to launch the Node.js server that will communicate with Ejabberd.
+6. Node.js Deployment:
+
+Finally, deploy the nodejs-deployment.yaml to launch the Node.js server that will communicate with Ejabberd.
+
+7. Useful Minikube commands
+    - minikube ip
+    - minikube dashboard
+    - minikube service [ServiceName] --url
+    - kubectl get pods
+

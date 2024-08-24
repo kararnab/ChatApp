@@ -1,4 +1,4 @@
-FROM ejabberd/ecs
+FROM ejabberd/ecs:latest
 
 # Copy ejabberd.yml config file
 COPY ejabberd.yml /etc/ejabberd/ejabberd.yml
@@ -7,8 +7,11 @@ COPY ejabberd.yml /etc/ejabberd/ejabberd.yml
 COPY ejabberd.pem /etc/ejabberd/ejabberd.pem
 COPY ejabberd.key /etc/ejabberd/ejabberd.key
 
+# Set permissions for SSL certificates (Linux Only)
+# RUN chmod 600 /etc/ejabberd/ejabberd.pem /etc/ejabberd/ejabberd.key
+
 # Expose necessary ports
 EXPOSE 5222 5269 5280 4369 9100
 
-# # Start Ejabberd service
+# Start Ejabberd service
 CMD ["ejabberdctl", "foreground"]

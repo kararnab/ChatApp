@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: ejabberd
-          image: your-dockerhub-username/ejabberd-custom:latest
+          image: ejabberd:latest # ejabberd-custom:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5222
             - containerPort: 5269
@@ -34,6 +35,13 @@ spec:
           volumeMounts:
             - name: ejabberd-storage
               mountPath: /home/ejabberd/database
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
   volumeClaimTemplates:
     - metadata:
         name: ejabberd-storage
@@ -41,13 +49,14 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 5Gi
+            storage: 2Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ejabberd
 spec:
+  type: ClusterIP
   ports:
     - name: xmpp-client
       port: 5222
@@ -55,6 +64,19 @@ spec:
       port: 5269
     - name: web-admin
       port: 5280
-  clusterIP: None
   selector:
     app: ejabberd
+
+readinessProbe:
+  httpGet:
+    path: /status
+    port: 5280
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+
+livenessProbe:
+  httpGet:
+    path: /status
+    port: 5280
+  initialDelaySeconds: 10
+  timeoutSeconds: 2

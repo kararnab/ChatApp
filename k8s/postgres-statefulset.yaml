@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: postgres
 spec:
-  serviceName: "postgres"
+  serviceName: "postgres-service"
   replicas: 1
   selector:
     matchLabels:
@@ -28,6 +28,19 @@ spec:
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d/
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+      volumes:
+      - name: initdb
+        configMap:
+          name: postgres-initdb-configmap
   volumeClaimTemplates:
     - metadata:
         name: postgres-storage
@@ -35,15 +48,31 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 5Gi
+            storage: 1Gi
 ---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-initdb-configmap
+data:
+  init.sql: |
+    CREATE USER ejabberd_user WITH PASSWORD 'yourpassword';
+    CREATE DATABASE ejabberd_db;
+    GRANT ALL PRIVILEGES ON DATABASE ejabberd_db TO ejabberd_user;
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: postgres-service
+  labels:
+    app: postgres
 spec:
   ports:
     - port: 5432
-  clusterIP: None
+      targetPort: 5432
   selector:
     app: postgres
+  type: ClusterIP
