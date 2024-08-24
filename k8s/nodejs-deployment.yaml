@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-chat-server
+spec:
+  selector:
+    matchLabels:
+      app: nodejs-chat-server
+  template:
+    metadata:
+      labels:
+        app: nodejs-chat-server
+    spec:
+      containers:
+        - name: nodejs-chat
+          image: your-dockerhub-username/nodejs-chat-server:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: EJABBERD_HOST
+              value: "ejabberd"
+            - name: EJABBERD_PORT
+              value: "5222"
+            - name: EJABBERD_ADMIN
+              value: "admin@yourdomain.com"
+            - name: EJABBERD_ADMIN_PASS
+              value: "adminpassword"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-chat-server
+spec:
+  selector:
+    app: nodejs-chat-server
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000

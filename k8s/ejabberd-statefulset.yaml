@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ejabberd
+spec:
+  serviceName: "ejabberd"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ejabberd
+  template:
+    metadata:
+      labels:
+        app: ejabberd
+    spec:
+      containers:
+        - name: ejabberd
+          image: your-dockerhub-username/ejabberd-custom:latest
+          ports:
+            - containerPort: 5222
+            - containerPort: 5269
+            - containerPort: 5280
+          env:
+            - name: EJABBERD_DB_TYPE
+              value: "sql"
+            - name: EJABBERD_DB_HOST
+              value: "postgres"
+            - name: EJABBERD_DB_NAME
+              value: "ejabberd_db"
+            - name: EJABBERD_DB_USER
+              value: "ejabberd_user"
+            - name: EJABBERD_DB_PASS
+              value: "yourpassword"
+          volumeMounts:
+            - name: ejabberd-storage
+              mountPath: /home/ejabberd/database
+  volumeClaimTemplates:
+    - metadata:
+        name: ejabberd-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ejabberd
+spec:
+  ports:
+    - name: xmpp-client
+      port: 5222
+    - name: xmpp-server
+      port: 5269
+    - name: web-admin
+      port: 5280
+  clusterIP: None
+  selector:
+    app: ejabberd

@@ -1,0 +1,138 @@
+###
+### ejaberred config file
+###
+
+### Modules
+modules:
+  mod_adhoc: {}
+  mod_admin_extra: {}
+  mod_announce: {}
+  mod_blocking: {}
+  mod_caps: {}
+  mod_carboncopy: {}
+  mod_configure: {}
+  mod_disco: {}
+  mod_http_bind: {} # Supports BOSH (HTTP binding for XMPP)
+  mod_http_fileserver: {}
+  mod_last: {}
+  mod_mam: {} # Message Archive Management (storing and retrieving message history)
+  mod_message: {}
+  mod_muc:
+    host: "conference.@HOST@" # Multi-User Chat (MUC) for group chats
+  mod_muc_admin: {}
+  mod_muc_log: {}
+  mod_offline:
+    access_max_user_messages: max_user_offline_messages
+  mod_ping: {}
+  mod_privacy: {}
+  mod_private: {}
+  mod_proxy65: {} # File transfer proxy for XMPP
+  mod_pubsub: {} # Publish-Subscribe (for real-time updates)
+  mod_register: {} # Allows users to register accounts
+  mod_roster:
+    versioning: true # Roster versioning for better efficiency
+  mod_shared_roster: {}
+  mod_sic: {}
+  mod_stats: {}
+  mod_stream_management:
+    resend_on_timeout: if_offline # Stream management to handle disconnections
+  mod_time: {}
+  mod_vcard: {}
+  mod_version: {}
+  mod_websocket: {} # WebSocket support for XMPP over WebSocket connections
+
+### Host Configuration
+host_config:
+  "example.com":
+    domain: "example.com"
+    auth_method: internal # For internal authentication (can be replaced with 'sql' if using PostgreSQL)
+    password_hash: pbkdf2
+    allow_multiple_connections: true # Allow multiple simultaneous connections for the same user
+
+## Listen
+listen:
+  - port: 5222
+    ip: "::" # Listen on all IPv6 addresses; can be set to 0.0.0.0 for IPv4
+    module: ejabberd_c2s # Client-to-Server connection
+    max_stanza_size: 65536
+    shaper: c2s_shaper
+    access: c2s
+    starttls: true # Enables STARTTLS (recommended)
+    tls: true # Force TLS for secure connections
+    certfile: "/etc/ejabberd/ejabberd.pem" # Path to the certificate file
+    protocol_options:
+      - "no_sslv2"
+      - "no_sslv3"
+      - "no_tlsv1"
+      - "no_tlsv1_1"
+
+  - port: 5269
+    module: ejabberd_s2s_in
+    starttls: true
+    tls: true
+    certfile: "/etc/ejabberd/ejabberd.pem"
+    protocol_options:
+      - "no_sslv2"
+      - "no_sslv3"
+      - "no_tlsv1"
+      - "no_tlsv1_1"
+
+  - port: 5280
+    ip: "::"
+    module: ejabberd_http
+    request_handlers:
+      "/websocket": ejabberd_http_ws
+      "/admin": ejabberd_web_admin
+      "/http-bind": mod_bosh # Enables BOSH (Bidirectional-streams Over Synchronous HTTP) which allows XMPP communication over HTTP.
+    web_admin: true # Enable web admin interface
+    http_bind: true # Enable BOSH (HTTP binding for XMPP)
+    tls: true # Force TLS for secure connections
+    certfile: "/etc/ejabberd/ejabberd.pem"
+    protocol_options:
+      - "no_sslv2"
+      - "no_sslv3"
+      - "no_tlsv1"
+      - "no_tlsv1_1"
+
+  - port: 5443
+    module: ejabberd_http
+    request_handlers:
+      "/websocket": ejabberd_http_ws
+      "/admin": ejabberd_web_admin
+      "/http-bind": mod_bosh
+    tls: true
+    certfile: "/etc/ejabberd/ejabberd.pem"
+    protocol_options:
+      - "no_sslv2"
+      - "no_sslv3"
+      - "no_tlsv1"
+      - "no_tlsv1_1"
+
+### TLS Configuration
+tls:
+  protocol_options:
+    - "no_sslv2"
+    - "no_sslv3"
+    - "no_tlsv1"
+    - "no_tlsv1_1"
+  ciphers: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384" # Secure ciphers for encryption
+  certfiles:
+    - "/etc/ejabberd/ejabberd.pem"
+
+### Database Configuration
+sql_type: pgsql
+# In a Dockerized environment, localhost inside the container refers to the container itself, not the host machine.
+sql_server: "postgres" # Hostname or IP address of the PostgreSQL server
+sql_database: "ejabberd_db"
+sql_username: "ejabberd_user"
+sql_password: "yourpassword"
+sql_pool_size: 10 # Number of connections in the connection pool
+sql_queue_type: fifo # First-in, first-out queue type
+sql_queue_max: 1000 # Maximum number of SQL queries in the queue
+
+## Logging Configuration
+loglevel: 4 # Log level (4 = info, 5 = debug, etc.)
+log_rotate_size: 10485760 # Rotate logs after they reach this size (in bytes)
+log_rotate_date: "" # Rotate logs based on date (optional)
+log_rotate_count: 1 # Number of rotated logs to keep
+log_rate_limit: 100 # Limit log messages per second

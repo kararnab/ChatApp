@@ -1,61 +1,79 @@
-WHATSAPP CLONE CHAT APP
-========================
+## 1. Introduction
 
-[![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+This is a chat server implementation, optimized with the help of CodeLLAMA and ChatGPT
 
-Welcome! This is a chat application that can be used for local usage in a small network. It creates a local server and people connected to the network can do a group or private chat. It is in its initial phases of development now.
-The chat part will be implemented using [sockets.io](https://socket.io).
+## 2. Setup
 
+### Create Self signed SSL Certificate
 
-# Instructions to run
-Clone the project
-```
-git clone https://github.com/kararnab/ChatApp.git
+```bash
+openssl req -x509 -newkey rsa:4096 -nodes -keyout ejabberd.key -out ejabberd.pem -days 365 -subj "/C=US/ST=State/L=Locality/O=Organization/CN=localhost"
 ```
 
-### DataBase - SQLite
-* Sqlite being the defacto and deJure standard of Android apps is being used here.
+### Access Ejabberd
 
-### Server
-Although the server is not yet ready, I plan to write it in node
-* You need to have node and npm installed in your machine.
-* open up your teminal or command prompt go to the directory `chat`
-* Do install all dependencies using  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`npm install`  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`npm install -g nodemon`  
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`npm start`  
-Your server will be setup and ready for use.
+You can access them using-
 
-### UI
-* Go to browser and type `localhost:8080` in place of url.
-* Register user by giving basic details.
-* Login from the same screen.  
-`Note: Handle should be unique for every user.`
+- WebSocket(ws): `ws://localhost:5280/websocket`
+- XMPP: `localhost:5222`
+- You can access the Ejabberd web admin interface via http://localhost:5280/admin using the default credentials (which can be changed in the Ejabberd configuration).
 
-# Why I started this
-I had seen a lot of times during local areas like coffee shops that people find it difficult to interact with each other may be due to hesitation. Most of the local chats that we find will be again public and the interactions become public. So I was thinking of creating an application where people can talk in public as well as private.
+## 3. Folder Structure
 
-# Few Screen Shots
-#### Main Screen
-![chat screen](https://github.com/kararnab/ChatApp/blob/master/screenshots/chat_history.png "Chat Page")  
-#### Call history
-![call screen](https://github.com/kararnab/ChatApp/blob/master/screenshots/call_history.png "Call Page")  
+```
+project-root/
+│
+├── k8s/
+│ ├── ejabberd-statefulset.yaml         # StatefulSet for Ejabberd
+│ ├── nodejs-deployment.yaml            # Deployment for Node.js server
+│ ├── postgres-statefulset.yaml         # StatefulSet for PostgreSQL
+│ ├── persistent-volumes.yaml           # Persistent Volumes and Claims
+│
+├── ejabberd/
+│ ├── Dockerfile                        # Dockerfile for Ejabberd
+│ └── ejabberd.yml                      # Configuration file for Ejabberd
+│
+├── nodejs/
+│ ├── Dockerfile                        # Dockerfile for Node.js server
+│ └── server.js                         # Node.js server code
+│
+└── postgres/
+    └── init.sql                        # SQL script to initialize PostgreSQL database
+```
 
+### Folder Contents Explained:
 
-# Upcoming
-I have lot of things to do. 
-* Rewrite the whole code in kotlin.
-* Writing the socket logics
-* Bug fixes.
-* More feauters to come, like blocking a user from chatting etc.  
-* Option for saving chats in case you need it.
+k8s/ Directory:
 
-# Suggestions
-If you have any suggestions please do mail me at `arnabrocking@gmail.com` with subject as `whatsappclone-suggestions`
+ejabberd-statefulset.yaml: Defines the StatefulSet for the Ejabberd server, ensuring persistent storage and stable network identity.
+nodejs-deployment.yaml: Defines the Deployment for the Node.js server that communicates with the Ejabberd XMPP server.
+postgres-statefulset.yaml: Defines the StatefulSet for PostgreSQL, ensuring persistent storage and stable network identity.
+persistent-volumes.yaml: Contains PersistentVolumeClaim (PVC) definitions for PostgreSQL and Ejabberd, ensuring data persistence.
+ejabberd/ Directory:
 
-License
--------
-Like the rest of Gradle, the _Gradle Kotlin DSL_ is released under version 2.0 of the [Apache License](LICENSE.md).
+Dockerfile: The Dockerfile for building the custom Ejabberd Docker image.
+ejabberd.yml: Configuration file for Ejabberd, customized to connect to the PostgreSQL database and handle XMPP-related configurations.
+nodejs/ Directory:
 
-# Credits
-I was inspired by the challenges faced by my friends. I wanted to find out a soluton. So, credit goes to them.
+Dockerfile: The Dockerfile for building the Node.js server Docker image.
+server.js: The Node.js application code that interacts with the Ejabberd server for 1:1 chat functionality.
+postgres/ Directory:
+
+init.sql: SQL script for initializing the PostgreSQL database with the required database and user for Ejabberd.
+
+## Deployment Order:
+
+1. Build Docker Images
+
+2. Persistent Volumes:
+
+Start by applying the persistent-volumes.yaml to set up persistent storage.
+PostgreSQL StatefulSet:
+
+3. Deploy the postgres-statefulset.yaml to bring up the PostgreSQL database.
+   Ejabberd StatefulSet:
+
+Deploy the ejabberd-statefulset.yaml to bring up the Ejabberd server.
+Node.js Deployment:
+
+4. Finally, deploy the nodejs-deployment.yaml to launch the Node.js server that will communicate with Ejabberd.

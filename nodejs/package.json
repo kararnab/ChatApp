@@ -1,0 +1,25 @@
+{
+    "name": "chat-app-node",
+    "version": "1.0.0",
+    "description": "Express project for chat app",
+    "main": "./src/index.js",
+    "scripts": {
+      "start": "node ./src/index.js",
+      "startDev": "nodemon ./src/index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Arnab Kar",
+    "license": "MIT",
+    "dependencies": {
+      "express": "^4.19.2",
+      "ws": "8.18.0"
+    },
+    "devDependencies": {
+      "nodemon": "^3.1.4"
+    },
+    "keywords": [
+    "chat",
+    "ejabbered-client",
+    "chat-app"
+  ]
+  }

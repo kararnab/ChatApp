@@ -1,0 +1,14 @@
+FROM ejabberd/ecs
+
+# Copy ejabberd.yml config file
+COPY ejabberd.yml /etc/ejabberd/ejabberd.yml
+
+# Copy SSL certificates
+COPY ejabberd.pem /etc/ejabberd/ejabberd.pem
+COPY ejabberd.key /etc/ejabberd/ejabberd.key
+
+# Expose necessary ports
+EXPOSE 5222 5269 5280 4369 9100
+
+# # Start Ejabberd service
+CMD ["ejabberdctl", "foreground"]
